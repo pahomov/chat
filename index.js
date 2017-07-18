@@ -17,10 +17,12 @@ app.use(logger());
 app.use(bodyParser());
 app.use(router.routes());
 io.attach(app);
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
 
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://admin:pass@ds141209.mlab.com:41209/kursnode', {
+  useMongoClient: true,
+}).catch(console.log);
 
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
